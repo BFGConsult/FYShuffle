@@ -51,7 +51,28 @@ function mailtoClass(classId, key) {
     Array.prototype.forEach.call(elements, function(element, index) {
 	var target=FYBackward(element.dataset['content'],key);
 	var anchor = document.createElement("a");
-	anchor.href='mailto:'+target;
+	var fields=[];
+	var esc = encodeURIComponent;
+	for (field of ['cc', 'bcc', 'subject', 'body']) {
+	    if (field in element.dataset) {
+		if (field[field.length-1]=='c') {
+		    for (mail of element.dataset[field].split(',')) {
+			fields.push(field+'='+esc(mail));
+		    }
+		}
+		else {
+		    fields.push(field+'='+esc(element.dataset[field]));
+		}
+	    }
+	}
+	var query='';
+	if (fields.length>1) {
+	    query='?'+fields.shift();
+	    for (f of fields) {
+		query+='&'+f;
+	    }
+	}
+	anchor.href='mailto:'+target+query;
 	anchor.text = target;
 	element.parentNode.replaceChild(anchor, element);
     });
