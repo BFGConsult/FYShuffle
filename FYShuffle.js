@@ -64,7 +64,7 @@ function mailtoClass(classId, key) {
 	    }
 	}
 	var query='';
-	if (fields.length>1) {
+	if (fields.length > 0) {
 	    query='?'+fields.shift();
 	    for (f of fields) {
 		query+='&'+f;
