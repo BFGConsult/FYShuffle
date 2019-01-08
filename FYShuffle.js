@@ -34,8 +34,6 @@ function FYForward(text, key) {
     var b64 = window.btoa(text);
     b64 = b64.replace(/=+$/, "");
     var expect=Math.ceil(text.length*4/3);
-    console.log(expect);
-    console.log(b64.length);
     var n = b64.length;
     var perm = genPerm(n, key);
     var enc = '';
