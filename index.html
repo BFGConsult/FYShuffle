@@ -13,8 +13,15 @@ data-content="GuQ5ZmZasL5JY5nvWWmn" data-cc="cc@example.com,cc2@example.com"
   data-body="Body text">You need to enable javascript to see this text</span>
   </p>
   <p>
-    Here's another email: <span class="email" data-content="GuQ5ZmZasL5JY5nvWWmn" >You need to enable javascript to see this text</span>
+    Here's only an email: <span class="email" data-content="zmFcblBNdGxGeVtdLGlEvQ" >You need to enable javascript to see this text</span>
   </p>
+  <p>
+    <form id="form">
+      <label for="key">Key:</label><input name="fname" value="0" type="text"></br>
+      <label for="encode">Text:</label><input name="encode" value="" type="text"></br>
+      <input type="submit" value="Encode">
+  </p>
+  </form>
   <p id="toEncode">
     <span class="instructions" data-content="Seeve2NbyleIbGY1VZwUbd9NFZYWYyJFVwUSIlBYGStMggUZaG1lIzUX1uI5mWNBiXMGbgkGvFhMXgxgBgWQWGWuGp9m">You need to enable javascript to see this text</span>
   </p>
@@ -34,7 +41,7 @@ for(var i = 0; i < n; ++i) {
   var span = document.createElement("span");
   span.className = 'encode';
   span.dataset['content']=toEncode[i];
-np.appendChild(span);
+   np.appendChild(span);
    span.insertAdjacentHTML('beforebegin', toEncode[i] + ' <=> ');
 
   p.parentNode.insertBefore(np, p.nextSibling);
