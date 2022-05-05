@@ -17,8 +17,8 @@ data-content="GuQ5ZmZasL5JY5nvWWmn" data-cc="cc@example.com,cc2@example.com"
   </p>
   <p>
     <form id="form">
-      <label for="key">Key:</label><input name="fname" value="0" type="text"></br>
-      <label for="encode">Text:</label><input name="encode" value="" type="text"></br>
+      <label for="key">Key:</label><input id="key" name="key" value="0" type="text"></br>
+      <label for="encode">Text:</label><input id="encode" name="encode" value="" type="text"></br>
       <input type="submit" value="Encode">
   </p>
   </form>
@@ -32,6 +32,12 @@ var toEncode = searchParams.getAll('encode');
 var key = searchParams.get('key');
 if (!key)
   key=0;
+
+var keyfield = document.getElementById("key");
+keyfield.value=key;
+
+var encodefield = document.getElementById("encode");
+encodefield.value=toEncode;
 
 var p = document.getElementById("toEncode");
 
