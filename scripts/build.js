@@ -62,11 +62,11 @@ const targets = {
     banner: '/* FYShuffle.js — browser (UMD-style) */',
   },
   node: {
-    out: 'fyshuffle.node.js',
+    out: 'FYShuffle.node.js',
     banner: '/* FYShuffle — Node (CommonJS) */',
   },
   esm: {
-    out: 'fyshuffle.module.js',
+    out: 'FYShuffle.module.js',
     banner: '/* FYShuffle — ES module */',
   },
 };
