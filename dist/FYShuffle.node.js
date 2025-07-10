@@ -45,3 +45,5 @@ function FYBackward(enc, key) {
   }
   return base64Decode(b64a.join(''));
 }
+
+module.exports = { FYForward, FYBackward, genPerm, nextRand };
