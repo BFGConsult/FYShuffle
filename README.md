@@ -1,18 +1,165 @@
 # FYShuffle
 
-FYShuffle is based on the Fisher-Yates shuffle algorithm, and is a scrambler for arbitrary text. The primary intended use is to prevent bots from reading email directly, but any text can be scrambled or unscrambled.
+**FYShuffle** is a JavaScript-based text scrambler based on the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) algorithm. It is designed to obfuscate arbitrary text—primarily email addresses—so they are hidden from bots while remaining readable to users with JavaScript enabled.
 
-## Cryptographic strength
-First off, **never use this for anything security related**. This is not the right way to go if you need any security properties.
-That being said, the cryptographic properties of using this algorithm for its intended purpose are not as bad as one could expect.
+---
 
-There is no cleartext, so you cannot break it by a known plaintext attack, it's only easy to deduce the length of the text. The key is limited to 2^31, which implies that when the length of the text to encrypt is less than 12 characters, you cannot really deduce anything. When the length of the text to encrypt increases, statistical methods becomes more usable.
+## Features
 
-## Why does this work?
-It shouldn't work, if you can read it a bot can read it. But for all practical purposes bots can't allocate enough resources to process a page by javascript, since it's querying thousands of pages per second. So in practice what happens is that the bot sees whatever you write in the non-JS version of the page, but the user sees the intended text.
+- Works in both browser and Node.js environments
+- Deterministic scrambling using a 31-bit numeric key
+- Output is reversible with the correct key
+- No external dependencies
+- Distributed in multiple formats:
+  - `FYShuffle.js`: browser-compatible UMD build
+  - `FYShuffle.min.js`: minified UMD
+  - `FYShuffle.module.js`: ES module for bundlers
+  - `FYShuffle.node.js`: CommonJS build for Node
 
-## How about accessibility
-This is not how to do accessibility right. This is simply a solution to the problem of spammers scraping email-addresses. Accessibility is important and I would argue that if you're using this script used on a limited scope, the benefits can outweigh the drawbacks, but I would very much emphasize the importance of universal access. Don't ignore someone, just because their method of experience your pages aren't the normal way.
+---
 
-## Testing
-There's an example page continously deployed available at https://bfgconsult.github.io/FYShuffle/ . You can use this to generate "secret"-text
+## Cryptographic Strength
+
+Do **not** use FYShuffle for anything requiring actual security.
+
+This is not a cryptographic algorithm and is not designed to resist serious attacks. The keyspace is limited (2³¹), and the shuffle is reversible. That said, for its intended use—discouraging bots—it provides practical obfuscation without exposing the original text directly.
+
+With shorter inputs, brute-force is inefficient. With longer inputs, statistical attacks become feasible. Still, it's far more effective than leaving plain text in the DOM.
+
+---
+
+## Why Does This Work?
+
+In theory, it shouldn’t—if a browser can unscramble the content, so can a bot. But in practice, bots don’t execute JavaScript on every page they crawl. Doing so is too resource-intensive when crawling at scale.
+
+- Bots usually see the placeholder or scrambled data
+- Human users see the original content after client-side decoding
+
+This asymmetry is enough to meaningfully reduce spam and scraping in many real-world cases.
+
+---
+
+## Accessibility Considerations
+
+This is not a best-practice approach to accessibility. Screen readers, text-only browsers, and users with JavaScript disabled will not see the unscrambled content.
+
+If you use FYShuffle:
+
+- Limit its use to cases where obfuscation is necessary
+- Provide alternate access where appropriate (e.g., contact forms)
+- Consider fallback content or progressive enhancement
+
+---
+
+## Usage
+
+### In the Browser
+
+```html
+<script src="FYShuffle.js"></script>
+
+<div class="email" data-content="obfuscatedBase64String"></div>
+
+<script>
+  mailtoClass('email', 123456); // Decodes and replaces with a <a href="mailto:...">
+</script>
+```
+
+Other utilities include `scrambleClass()` and `unscrambleClass()` for general-purpose content.
+
+---
+
+### In Node.js
+
+```js
+import { FYForward, FYBackward } from 'FYShuffle';
+
+const key = 123456;
+const input = 'hello@example.com';
+
+const scrambled = FYForward(input, key);
+const original = FYBackward(scrambled, key);
+
+console.log(original); // hello@example.com
+```
+
+---
+
+## Installation
+
+If published to npm:
+
+```bash
+npm install FYShuffle
+```
+
+If working from source:
+
+```bash
+git clone https://github.com/BFGConsult/FYShuffle.git
+cd FYShuffle
+npm install
+```
+
+---
+
+## Build
+
+To generate the output bundles:
+
+```bash
+npm run build
+```
+
+The following files will be created in the `dist/` directory:
+
+```
+dist/
+├── FYShuffle.js         // UMD (for browsers)
+├── FYShuffle.min.js     // Minified UMD
+├── FYShuffle.module.js  // ESM (for bundlers)
+├── FYShuffle.node.js    // CommonJS (for Node)
+```
+
+Use `npm run build -v` for verbose logging.
+
+---
+
+## Demo
+
+Try FYShuffle live at:
+
+[https://bfgconsult.github.io/FYShuffle/](https://bfgconsult.github.io/FYShuffle/)
+
+The demo lets you:
+
+- Enter custom text and key
+- See the scrambled result
+- Test browser rendering of decoded content
+
+---
+
+## Project Structure
+
+```
+.
+├── dist/                # Final build artifacts
+│   ├── FYShuffle.js
+│   ├── FYShuffle.min.js
+│   ├── FYShuffle.module.js
+│   └── FYShuffle.node.js
+├── index.html           # Demo/test page
+├── package.json         # Project metadata and build config
+├── package-lock.json
+├── README.md
+├── LICENSE              # GNU Affero General Public License
+├── scripts/
+│   └── build.js         # Build and bundling script
+└── src/
+    ├── core/
+    │   ├── base64.browser.js
+    │   └── base64.node.js
+    ├── fyshuffle-core.js
+    ├── fyshuffle-crypto.js
+    └── fyshuffle-dom.js
+```
