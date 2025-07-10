@@ -4,8 +4,8 @@
  * This Node.js script assembles and outputs standalone JavaScript bundles for different environments:
  *
  * - browser (UMD-style):   dist/FYShuffle.js
- * - node (CommonJS):       dist/fyshuffle.node.js
- * - esm (ES Modules):      dist/fyshuffle.module.js
+ * - node (CommonJS):       dist/FYShuffle.node.js
+ * - esm (ES Modules):      dist/FYShuffle.module.js
  *
  * Key Features:
  * - Assembles source files per target (defined in `sources`)
@@ -95,9 +95,7 @@ function stripModuleSyntax(code, filePath) {
       );
       if (exportMatch) {
         if (isVerbose)
-          console.log(
-            `⚠️  Removed 'export' from ${filePath}: ${trimmed}`
-          );
+          console.log(`⚠️  Removed 'export' from ${filePath}: ${trimmed}`);
         return line.replace(/^export\s+/, '');
       }
 
@@ -126,7 +124,13 @@ async function buildTarget(targetKey) {
       })
     );
 
-    const combined = `${banner}\n\n${contents.join('\n\n')}`;
+    let combined = `${banner}\n\n${contents.join('\n\n')}`;
+
+    // Add CommonJS export block for node
+    if (targetKey === 'node') {
+      combined += `\n\nmodule.exports = { FYForward, FYBackward, genPerm, nextRand };`;
+    }
+
     const output = await prettier.format(combined, {
       parser: 'babel',
       semi: true,
@@ -138,6 +142,7 @@ async function buildTarget(targetKey) {
     await fs.writeFile(outputPath, output, 'utf8');
     console.log(`✔️  Built ${out}`);
 
+    // Optional minification for browser
     if (targetKey === 'browser') {
       const minified = await terser.minify(combined);
       const minPath = path.join(distDir, 'FYShuffle.min.js');
