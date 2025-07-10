@@ -130,6 +130,9 @@ async function buildTarget(targetKey) {
     if (targetKey === 'node') {
       combined += `\n\nmodule.exports = { FYForward, FYBackward, genPerm, nextRand };`;
     }
+    if (targetKey === 'esm') {
+      combined += `\n\nexport { FYForward, FYBackward, genPerm, nextRand };`;
+    }
 
     const output = await prettier.format(combined, {
       parser: 'babel',
