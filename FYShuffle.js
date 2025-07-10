@@ -19,6 +19,14 @@ function genPerm(n, key) {
     return perm;
 }
 
+function base64Encode(str) {
+    return window.btoa(str);
+}
+
+function base64Decode(str) {
+    return window.atob(str);
+}
+
 function FYBackward(enc, key) {
     var n = enc.length;
     var perm = genPerm(n, key);
@@ -27,11 +35,11 @@ function FYBackward(enc, key) {
     for (var i = 0; i < n; ++i) {
         b64a[perm[i]] = enc[i];
     }
-    return window.atob(b64a.join(''));
+    return base64Decode(b64a.join(''));
 }
 
 function FYForward(text, key) {
-    var b64 = window.btoa(text);
+    var b64 = base64Encode(text);
     b64 = b64.replace(/=+$/, "");
     var expect = Math.ceil(text.length * 4 / 3);
     var n = b64.length;
