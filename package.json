@@ -1,7 +1,14 @@
 {
-  "name": "fyshuffle",
+  "name": "FYShuffle",
   "version": "0.0.9",
   "type": "module",
+  "main": "./dist/FYShuffle.node.js",      // Used by Node (CommonJS consumers)
+  "module": "./dist/FYShuffle.module.js",  // Used by bundlers (Rollup, Webpack etc.)
+  "browser": "./dist/FYShuffle.js",        // UMD build (legacy or direct browser use)
+  "exports": {
+    "import": "./dist/FYShuffle.module.js",
+    "require": "./dist/FYShuffle.node.js"
+  },
   "scripts": {
     "build": "node scripts/build.js"
   },
