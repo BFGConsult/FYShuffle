@@ -2,17 +2,19 @@
   "compilerOptions": {
     "target": "ES2017",
     "module": "nodenext",
-      "lib": ["es2015", "DOM"],
+    "lib": ["es2015", "DOM"],
     "moduleResolution": "nodenext",
-    "declaration": true,
-    "emitDeclarationOnly": true,
     "allowJs": true,
     "checkJs": true,
+    "declaration": false,
+    "emitDeclarationOnly": false,
+    "noEmit": false,
     "outDir": "./ts",
     "strict": true
   },
-"include": [
+  "include": [
     "dist/FYShuffle.js",
     "dist/FYShuffle.module.js",
     "dist/FYShuffle.node.js"
-  ]}
+  ]
+}
