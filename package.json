@@ -5,6 +5,7 @@
   "main": "./dist/FYShuffle.node.js",
   "module": "./dist/FYShuffle.module.js",
   "browser": "./dist/FYShuffle.js",
+  "types": "./dist/FYShuffle.d.ts",
   "exports": {
     "import": "./dist/FYShuffle.module.js",
     "require": "./dist/FYShuffle.node.js"
