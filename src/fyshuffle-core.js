@@ -1,3 +1,7 @@
+/**
+ * @param {number} X
+ * @returns {number}
+ */
 export function nextRand(X) {
     var a = 1103515245;
     var c = 12345;
@@ -5,6 +9,11 @@ export function nextRand(X) {
     return (a * X + c) % m;
 }
 
+/**
+ * @param {number} n
+ * @param {number} key
+ * @returns {number[]}
+ */
 export function genPerm(n, key) {
     var perm = [...Array(n).keys()];
     for (var i = 0; i < n; ++i) {

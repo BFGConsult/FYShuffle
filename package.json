@@ -17,10 +17,16 @@
     }
   },
   "scripts": {
-    "build": "node scripts/build.js"
+      "tsgen": "tsc -p tsconfig.build.json",
+      "types": "dts-bundle-generator --project tsconfig.dts.json -o dist/FYShuffle.d.ts ts/fyshuffle-core.d.ts",
+      "build": "node scripts/build.js && npm run tsgen && npm run types"
   },
   "devDependencies": {
+    "@types/node": "^20.8.10",
+    "dts-bundle-generator": "^9.5.1",
     "prettier": "^3.6.2",
-    "terser": "^5.43.1"
+    "terser": "^5.43.1",
+    "typescript": "^5.8.3",
+    "undici-types": "^7.11.0"
   }
 }

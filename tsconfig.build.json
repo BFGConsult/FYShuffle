@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "nodenext",
+      "lib": ["es2015", "DOM"],
+    "moduleResolution": "nodenext",
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "allowJs": true,
+    "checkJs": true,
+    "outDir": "./ts",
+    "strict": true
+  },
+    "include": ["src"]
+}
