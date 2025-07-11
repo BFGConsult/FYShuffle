@@ -19,10 +19,10 @@ function genPerm(n, key) {
 }
 
 function base64Encode(str) {
-  return window.btoa(str);
+  return Buffer.from(str, 'utf8').toString('base64');
 }
-function base64Decode(str) {
-  return window.atob(str);
+function base64Decode(b64) {
+  return Buffer.from(b64, 'base64').toString('utf8');
 }
 
 function FYForward(text, key) {

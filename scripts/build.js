@@ -50,7 +50,7 @@ const sources = {
   ],
   esm: [
     'src/fyshuffle-core.js',
-    'src/core/base64.browser.js',
+    'src/core/base64.node.js',
     'src/fyshuffle-crypto.js',
   ],
 };
