@@ -11,5 +11,8 @@
     "outDir": "./ts",
     "strict": true
   },
-    "include": ["src"]
-}
+"include": [
+    "dist/FYShuffle.js",
+    "dist/FYShuffle.module.js",
+    "dist/FYShuffle.node.js"
+  ]}
