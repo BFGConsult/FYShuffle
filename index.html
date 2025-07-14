@@ -1,61 +1,29 @@
-<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
-<html> <head>
-<meta charset="utf-8"/>
-<title>Testing FYShuffle</title>
-<script src="FYShuffle.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FYShuffle (legacy)</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+      max-width: 600px;
+      margin: auto;
+      line-height: 1.5;
+    }
+    .box {
+      border: 2px solid red;
+      background: #ffeaea;
+      padding: 1.5em;
+    }
+  </style>
 </head>
-
 <body>
-  <p>
-    Here's my email with all parameters set.: <span class="email"
-data-content="GuQ5ZmZasL5JY5nvWWmn" data-cc="cc@example.com,cc2@example.com"
-  data-bcc="bcc@example.com" data-subject="Test subject"
-  data-body="Body text">You need to enable javascript to see this text</span></br>
-  Note only the to field is encrypted. Everything else is cleartext. This may change in the future.
-  </p>
-  <p>
-    Here's only an email: <span class="email" data-content="zmFcblBNdGxGeVtdLGlEvQ" >You need to enable javascript to see this text</span>
-  </p>
-  <p>
-    <form id="form">
-      <label for="key">Key:</label><input id="key" name="key" value="0" type="number" min="0"></br>
-      <label for="encode">Text:</label><input id="encode" name="encode" value="" type="text"></br>
-      <input type="submit" value="Encode">
-  </p>
-  </form>
-  <p id="toEncode">
-    <span class="instructions" data-content="Seeve2NbyleIbGY1VZwUbd9NFZYWYyJFVwUSIlBYGStMggUZaG1lIzUX1uI5mWNBiXMGbgkGvFhMXgxgBgWQWGWuGp9m">You need to enable javascript to see this text</span>
-  </p>
-
-<script>
-var searchParams = new URLSearchParams(location.search);
-var toEncode = searchParams.getAll('encode');
-var key = searchParams.get('key');
-if (!key)
-  key=0;
-
-var keyfield = document.getElementById("key");
-keyfield.value=key;
-
-var encodefield = document.getElementById("encode");
-encodefield.value=toEncode;
-
-var p = document.getElementById("toEncode");
-
-var n=toEncode.length;
-for(var i = 0; i < n; ++i) {
-  var np = document.createElement("p");
-  var span = document.createElement("span");
-  span.className = 'encode';
-  span.dataset['content']=toEncode[i];
-   np.appendChild(span);
-   span.insertAdjacentHTML('beforebegin', toEncode[i] + ' <=> ');
-
-  p.parentNode.insertBefore(np, p.nextSibling);
-}
-
-scrambleClass('encode', key);
-unscrambleClass('instructions', key);
-mailtoClass('email', key);
-</script>
-</body></html>
+  <div class="box">
+    <h1>FYShuffle has moved</h1>
+    <p>This page belongs to a deprecated version of FYShuffle.</p>
+    <p>Please visit the new project page:</p>
+    <p><a href="https://github.com/BFGConsult/fyshuffle-obfuscator">https://github.com/BFGConsult/fyshuffle-obfuscator</a></p>
+  </div>
+</body>
+</html>
